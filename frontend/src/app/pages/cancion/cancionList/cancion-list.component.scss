@@ -25,3 +25,30 @@ table {
 	border-radius: 0.5rem;
 	z-index: 1050;
 }
+
+.banner-container {
+  height: 320px;
+}
+
+.banner-img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.8);
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
+.banner-content {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+}

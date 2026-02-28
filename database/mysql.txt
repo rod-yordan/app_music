@@ -47,10 +47,16 @@ CREATE TABLE persona (
 INSERT INTO genero_cancion (nombre) VALUES 
 ('Instrumental'),
 ('Reguetón'),
-('Cristiana');
+('Cristiana'),
+('Dance'),
+('Balada');
 
 -- Insertar canciones
 INSERT INTO cancion (nombre, artista, fecha_lanzamiento, id_genero_cancion) VALUES 
 ('Geronimo''s Laughter', 'Espiritu Andino', '2010-08-01', 1),
 ('Danza Kuduro (Remix)', 'Don Omar, Daddy Yankee, Arcángel & Lucenzo', '2010-12-15', 2),
-('Socorro', 'Un Corazón', '2024-02-23', 3);
+('Socorro', 'Un Corazón', '2024-02-23', 3),
+('All Falls Down (Live Performance at YouTube Space NY with Noah Cyrus & Juliander)', 'Alan Walker, Noah Cyrus & Juliander', '2017-12-02', 4),
+('Qué Gano Olvidándote', 'Reik', '2005-05-24', 5),
+('Te Dejo en Libertad', 'Ha-Ash', '2012-04-10', 5),
+('Quédate Lejos', 'Ha-Ash', '2008-09-23', 5);

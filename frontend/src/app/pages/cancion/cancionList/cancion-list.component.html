@@ -1,25 +1,29 @@
 <div class="container py-3">
-  <div class="card mb-3">
-    <div class="card-body">
-      <h2 class="h5 mb-3">Filtros de búsqueda</h2>
+  <div class="card border-0 shadow-lg overflow-hidden mb-4">
 
-      <form class="row g-3" aria-label="Filtros de búsqueda de canciones">
-        <div class="col-12 col-md-6">
-          <label for="filtroNombre" class="form-label">Nombre de canción</label>
-          <input id="filtroNombre" type="text" class="form-control" placeholder="Ingrese nombre de canción" />
-        </div>
+    <div class="position-relative" style="height: 420px;">
 
-        <div class="col-12 col-md-6">
-          <label for="filtroArtista" class="form-label">Artista</label>
-          <input id="filtroArtista" type="text" class="form-control" placeholder="Ingrese nombre del artista" />
-        </div>
+      <img 
+        src="assets/img/banner.png"
+        class="w-100 h-100"
+        style="object-fit: cover; object-position: center 20%;"
+        alt="Banner musical"
+      />
 
-        <div class="col-12 d-flex justify-content-end gap-2">
-          <button type="button" class="btn btn-primary">Buscar</button>
-          <button type="button" class="btn btn-outline-secondary">Limpiar</button>
-        </div>
-      </form>
+      <!-- Overlay degradado profesional -->
+      <div 
+        class="position-absolute top-0 start-0 w-100 h-100"
+        style="background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));">
+      </div>
+
+      <!-- Contenido -->
+      <div class="position-absolute bottom-0 start-0 p-4 text-white">
+        <h1 class="fw-bold mb-2">Panel de Canciones</h1>
+        <p class="mb-0">Administra tu colección musical</p>
+      </div>
+
     </div>
+
   </div>
 
   <div class="card">
