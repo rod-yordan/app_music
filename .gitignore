@@ -1,0 +1,53 @@
+# User files
+*.rsuser
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+# Build folders
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Visual Studio
+.vs/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Database files
+*.mdf
+*.ldf
+
+node_modules/
+dist/
+build/
+.tmp/
+.cache/
+coverage/
+
+# Angular cache
+.angular/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.idea/
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,54 @@
+<div class="card border-0">
+  <div class="card-header bg-white">
+    <h3 class="h5 mb-0">{{ modo() === 'editar' ? 'Editar canción' : 'Agregar canción' }}</h3>
+  </div>
+
+  <div class="card-body">
+
+    <form [formGroup]="form" class="row g-3" (ngSubmit)="onGuardar()">
+
+      <div class="col-12 col-md-6">
+        <label for="idGeneroCancion" class="form-label">Género</label>
+
+        <select id="idGeneroCancion" class="form-select" formControlName="idGeneroCancion">
+          <option value="" disabled selected>Seleccione un género</option>
+          @for (genero of generos(); track genero.id) {
+            <option [value]="genero.id">{{genero.nombre}}</option>
+          }
+        </select>
+
+        @if (form.controls.idGeneroCancion.touched && form.controls.idGeneroCancion.invalid) {
+        <div class="invalid-feedback d-block">El género es obligatorio.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="nombre" class="form-label">Nombre de la canción</label>
+        <input id="nombre" type="text" class="form-control" formControlName="nombre" />
+        @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+        <div class="invalid-feedback d-block">El nombre de la canción es obligatorio.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="artista" class="form-label">Artista</label>
+        <input id="artista" type="text" class="form-control" formControlName="artista" />
+        @if (form.controls.artista.touched && form.controls.artista.invalid) {
+        <div class="invalid-feedback d-block">El artista es obligatorio.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="fechaLanzamiento" class="form-label">Fecha de lanzamiento</label>
+        <input id="fechaLanzamiento" type="date" class="form-control" formControlName="fechaLanzamiento" />
+      </div>
+
+      <div class="col-12 d-flex justify-content-end gap-2 mt-2">
+        <button type="button" class="btn btn-outline-secondary" (click)="onCancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="cargando">
+          {{ cargando ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

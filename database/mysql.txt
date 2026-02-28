@@ -1,0 +1,56 @@
+DROP DATABASE IF EXISTS demo_db;
+CREATE DATABASE IF NOT EXISTS demo_db;
+
+USE demo_db;
+
+CREATE TABLE genero_cancion (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE cancion (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    artista VARCHAR(255) NOT NULL,
+    fecha_lanzamiento DATE,
+    id_genero_cancion INT,
+    FOREIGN KEY (id_genero_cancion) REFERENCES genero_cancion(id)
+);
+
+CREATE TABLE persona_tipo_documento (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
+    user_create INT NOT NULL,
+    user_update INT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_update TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE persona (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_tipo_documento INT NOT NULL,
+    nombres VARCHAR(100),
+    apellido_paterno VARCHAR(100),
+    apellido_materno VARCHAR(100),
+    direccion VARCHAR(300),
+    telefono VARCHAR(20),
+    user_create INT NOT NULL,
+    user_update INT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_update TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_persona_tipo_documento FOREIGN KEY (id_tipo_documento) 
+        REFERENCES persona_tipo_documento(id) 
+);
+
+-- Insertar géneros
+INSERT INTO genero_cancion (nombre) VALUES 
+('Instrumental'),
+('Reguetón'),
+('Cristiana');
+
+-- Insertar canciones
+INSERT INTO cancion (nombre, artista, fecha_lanzamiento, id_genero_cancion) VALUES 
+('Geronimo''s Laughter', 'Espiritu Andino', '2010-08-01', 1),
+('Danza Kuduro (Remix)', 'Don Omar, Daddy Yankee, Arcángel & Lucenzo', '2010-12-15', 2),
+('Socorro', 'Un Corazón', '2024-02-23', 3);

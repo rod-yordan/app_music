@@ -1,0 +1,83 @@
+<div class="container py-3">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Filtros de búsqueda</h2>
+
+      <form class="row g-3" aria-label="Filtros de búsqueda de canciones">
+        <div class="col-12 col-md-6">
+          <label for="filtroNombre" class="form-label">Nombre de canción</label>
+          <input id="filtroNombre" type="text" class="form-control" placeholder="Ingrese nombre de canción" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label for="filtroArtista" class="form-label">Artista</label>
+          <input id="filtroArtista" type="text" class="form-control" placeholder="Ingrese nombre del artista" />
+        </div>
+
+        <div class="col-12 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-primary">Buscar</button>
+          <button type="button" class="btn btn-outline-secondary">Limpiar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body table-wrapper">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Canción</th>
+              <th scope="col">Artista</th>
+              <th scope="col">Fecha de lanzamiento</th>
+              <th scope="col">Género</th>
+              <th scope="col">
+                <button type="button" class="btn btn-primary" (click)="abrirAgregar()">Agregar</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cancion of canciones(); track cancion.id) {
+            <tr>
+              <td>{{ cancion.id }}</td>
+              <td>{{ cancion.nombre }}</td>
+              <td>{{ cancion.artista }}</td>
+              <td>{{ cancion.fechaLanzamiento | date:'dd/MM/yyyy' }}</td>
+              <td>{{ obtenerNombreGenero(cancion.idGeneroCancion) }}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-warning me-2" (click)="abrirEditar(cancion)">
+                  Editar
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="eliminarCancion(cancion)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="6" class="text-center">No hay registros para mostrar.</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN EL CASO DE QUE LA VARIABLE mostrarModal ES IGUAL A TRUE ==> entonces va a construir el modal -->
+  @if (mostrarModal) {
+  <div class="modal-backdrop-custom" (click)="cerrarModal()"></div>
+  <div class="modal-custom" role="dialog" aria-modal="true" aria-label="Ventana de edición de canción">
+
+    <app-cancion-editar 
+      [cancion]="cancionSeleccionada" 
+      [generos]="generosCanciones"
+      [modo]="modoEdicion" 
+      (cancelar)="cerrarModal()" 
+      (guardado)="onGuardado()" />
+
+  </div>
+  }
+</div>
