@@ -43,6 +43,14 @@ CREATE TABLE persona (
         REFERENCES persona_tipo_documento(id) 
 );
 
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    id_persona INT,
+    FOREIGN KEY (id_persona) REFERENCES persona(id)
+);
+
 -- Insertar géneros
 INSERT INTO genero_cancion (nombre) VALUES 
 ('Instrumental'),

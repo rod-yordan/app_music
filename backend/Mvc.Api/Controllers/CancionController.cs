@@ -1,6 +1,5 @@
 ﻿using DtoModel.Cancion;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Bussnies.Cancion;
 
@@ -8,7 +7,7 @@ namespace Mvc.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class CancionController : ControllerBase
     {
         private readonly ICancionBussnies _cancionBussnies;
@@ -21,19 +20,17 @@ namespace Mvc.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<CancionDto>>> GetAll()
         {
-            List<CancionDto> list = await _cancionBussnies.GetAll();
+            var list = await _cancionBussnies.GetAll();
             return Ok(list);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CancionDto>> GetById(int id)
         {
-            CancionDto? cancion = await _cancionBussnies.GetById(id);
+            var cancion = await _cancionBussnies.GetById(id);
 
             if (cancion == null)
-            {
                 return NotFound(new { message = "Canción no encontrada" });
-            }
 
             return Ok(cancion);
         }
@@ -42,11 +39,10 @@ namespace Mvc.Api.Controllers
         public async Task<ActionResult<CancionDto>> Create([FromBody] CancionDto request)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            CancionDto cancion = await _cancionBussnies.Create(request);
+            var cancion = await _cancionBussnies.Create(request);
+
             return CreatedAtAction(nameof(GetById), new { id = cancion.Id }, cancion);
         }
 
@@ -54,16 +50,12 @@ namespace Mvc.Api.Controllers
         public async Task<ActionResult<CancionDto>> Update([FromBody] CancionDto request)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            CancionDto? cancion = await _cancionBussnies.Update(request);
+            var cancion = await _cancionBussnies.Update(request);
 
             if (cancion == null)
-            {
                 return NotFound(new { message = "Canción no encontrada" });
-            }
 
             return Ok(cancion);
         }
@@ -71,14 +63,13 @@ namespace Mvc.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            CancionDto? cancion = await _cancionBussnies.GetById(id);
+            var cancion = await _cancionBussnies.GetById(id);
 
             if (cancion == null)
-            {
                 return NotFound(new { message = "Canción no encontrada" });
-            }
 
             await _cancionBussnies.Delete(id);
+
             return NoContent();
         }
     }

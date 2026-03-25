@@ -1,0 +1,46 @@
+<main class="auth-page">
+  <section class="auth-card">
+    
+    <div class="header">
+      <h1>Iniciar sesión</h1>
+      <p>Accede a tu cuenta</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+
+      <!-- Usuario -->
+      <div class="field">
+        <label>Usuario</label>
+        <input type="text" formControlName="username" placeholder="Ingrese su usuario">
+
+        @if (loginForm.controls.username.touched && loginForm.controls.username.invalid) {
+          <small>Campo obligatorio</small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="Ingrese su contraseña">
+
+        @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+          <small>Campo obligatorio</small>
+        }
+      </div>
+
+      <!-- Error -->
+      @if (error()) {
+        <div class="error-box">
+          Usuario o contraseña incorrectos
+        </div>
+      }
+
+      <!-- Botón -->
+      <button type="submit" [disabled]="submitting()">
+        {{ submitting() ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+
+    </form>
+
+  </section>
+</main>

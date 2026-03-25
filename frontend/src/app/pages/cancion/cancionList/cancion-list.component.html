@@ -1,87 +1,89 @@
-<div class="container py-3">
-  <div class="card border-0 shadow-lg overflow-hidden mb-4">
+<div class="page-container">
 
-    <div class="position-relative" style="height: 420px;">
+  <!-- HEADER -->
+  <div class="page-header">
+    
+    <div class="header-content">
+      <h2>🎵 Canciones</h2>
+      <p>Gestiona tu colección musical</p>
+    </div>
 
-      <img 
-        src="assets/img/banner.png"
-        class="w-100 h-100"
-        style="object-fit: cover; object-position: center 20%;"
-        alt="Banner musical"
-      />
+    <div class="header-actions">
+      <button class="btn-logout" (click)="logout()">
+        Cerrar sesión
+      </button>
 
-      <!-- Overlay degradado profesional -->
-      <div 
-        class="position-absolute top-0 start-0 w-100 h-100"
-        style="background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));">
-      </div>
-
-      <!-- Contenido -->
-      <div class="position-absolute bottom-0 start-0 p-4 text-white">
-        <h1 class="fw-bold mb-2">Panel de Canciones</h1>
-        <p class="mb-0">Administra tu colección musical</p>
-      </div>
-
+      <button class="btn-add" (click)="abrirAgregar()">
+        + Nueva canción
+      </button>
     </div>
 
   </div>
 
-  <div class="card">
-    <div class="card-body table-wrapper">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Canción</th>
-              <th scope="col">Artista</th>
-              <th scope="col">Fecha de lanzamiento</th>
-              <th scope="col">Género</th>
-              <th scope="col">
-                <button type="button" class="btn btn-primary" (click)="abrirAgregar()">Agregar</button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (cancion of canciones(); track cancion.id) {
-            <tr>
-              <td>{{ cancion.id }}</td>
-              <td>{{ cancion.nombre }}</td>
-              <td>{{ cancion.artista }}</td>
-              <td>{{ cancion.fechaLanzamiento | date:'dd/MM/yyyy' }}</td>
-              <td>{{ obtenerNombreGenero(cancion.idGeneroCancion) }}</td>
-              <td>
-                <button type="button" class="btn btn-sm btn-warning me-2" (click)="abrirEditar(cancion)">
-                  Editar
-                </button>
-                <button type="button" class="btn btn-sm btn-danger" (click)="eliminarCancion(cancion)">
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-            } @empty {
-            <tr>
-              <td colspan="6" class="text-center">No hay registros para mostrar.</td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+  <!-- TABLA -->
+  <div class="table-card">
+
+    <div class="table-responsive">
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Canción</th>
+            <th>Artista</th>
+            <th>Fecha</th>
+            <th>Género</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (cancion of canciones(); track cancion.id) {
+          <tr>
+            <td>{{ cancion.id }}</td>
+            <td class="fw-bold">{{ cancion.nombre }}</td>
+            <td>{{ cancion.artista }}</td>
+            <td>{{ cancion.fechaLanzamiento | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <span class="badge">
+                {{ obtenerNombreGenero(cancion.idGeneroCancion) }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-edit" (click)="abrirEditar(cancion)">
+                ✏️
+              </button>
+              <button class="btn-delete" (click)="eliminarCancion(cancion)">
+                🗑️
+              </button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="6" class="empty">
+              No hay canciones registradas
+            </td>
+          </tr>
+          }
+        </tbody>
+
+      </table>
     </div>
+
   </div>
 
-  <!-- EN EL CASO DE QUE LA VARIABLE mostrarModal ES IGUAL A TRUE ==> entonces va a construir el modal -->
+  <!-- MODAL -->
   @if (mostrarModal) {
-  <div class="modal-backdrop-custom" (click)="cerrarModal()"></div>
-  <div class="modal-custom" role="dialog" aria-modal="true" aria-label="Ventana de edición de canción">
+    <div class="modal-backdrop-custom" (click)="cerrarModal()"></div>
 
-    <app-cancion-editar 
-      [cancion]="cancionSeleccionada" 
-      [generos]="generosCanciones"
-      [modo]="modoEdicion" 
-      (cancelar)="cerrarModal()" 
-      (guardado)="onGuardado()" />
-
-  </div>
+    <div class="modal-custom">
+      <app-cancion-editar 
+        [cancion]="cancionSeleccionada" 
+        [generos]="generosCanciones"
+        [modo]="modoEdicion" 
+        (cancelar)="cerrarModal()" 
+        (guardado)="onGuardado()" />
+    </div>
   }
+
 </div>

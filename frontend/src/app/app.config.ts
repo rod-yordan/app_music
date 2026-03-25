@@ -1,16 +1,23 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+
     provideRouter(routes),
-    //vamos a implementar el llamado a web api's
-    provideHttpClient(withFetch()),
+
+    
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor])
+    ),
+
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ]
 };
