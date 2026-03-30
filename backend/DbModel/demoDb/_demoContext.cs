@@ -4,29 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace DbModel.demoDb;
-
 public partial class _demoContext : DbContext
 {
     public _demoContext()
     {
     }
-
     public _demoContext(DbContextOptions<_demoContext> options)
         : base(options)
     {
     }
-
     public virtual DbSet<Persona> Persona { get; set; }
-
     public virtual DbSet<PersonaTipoDocumento> PersonaTipoDocumento { get; set; }
-
-    // NUEVOS DbSets
     public virtual DbSet<Cancion> Cancion { get; set; }
     public virtual DbSet<GeneroCancion> GeneroCancion { get; set; }
-
+    public virtual DbSet<ErrorLog> ErrorLog { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql("name=demoDb", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.45-mysql"));
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -53,7 +46,6 @@ public partial class _demoContext : DbContext
             entity.Property(e => e.DateUpdate).ValueGeneratedOnAddOrUpdate();
         });
 
-        // NUEVA Configuración para Cancion
         modelBuilder.Entity<Cancion>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -81,7 +73,6 @@ public partial class _demoContext : DbContext
                 .HasConstraintName("fk_cancion_genero");
         });
 
-        // NUEVA Configuración para GeneroCancion
         modelBuilder.Entity<GeneroCancion>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -98,6 +89,5 @@ public partial class _demoContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

@@ -22,6 +22,8 @@ using Mvc.Repository.PersonaTipoDocumentoRepo.Implementacion;
 using MySqlConnector;
 using System.Data;
 
+using Mvc.Api.Filters;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var key = "ESTA_ES_UNA_CLAVE_SUPER_SECRETA_12345";
@@ -80,13 +82,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiExceptionFilter>();
+});
 
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.UseMiddleware<Mvc.Api.Middleware.ErrorHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
